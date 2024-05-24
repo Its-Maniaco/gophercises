@@ -17,12 +17,29 @@ func init() {
 
 var tmpl *template.Template
 
-func NewStoryHandler(s jp.Story) http.Handler {
-	return storyHandler{s: s}
+type HandlerOpts func(h *storyHandler)
+
+func WithTemplate(t *template.Template) HandlerOpts {
+
+}
+
+func NewStoryHandler(s jp.Story, t *template.Template) http.Handler {
+	if t == nil {
+		return storyHandler{
+			s: s,
+			t: tmpl,
+		}
+	}
+	return storyHandler{
+		s: s,
+		t: t,
+	}
+
 }
 
 type storyHandler struct {
 	s jp.Story
+	t *template.Template
 }
 
 // storyHandler has a method named ServeHTTP, so it satisfies the http.Handler interface, instance of storyHandler passed to http.ListenAndServe, calls the ServeHTTP method internally.

@@ -18,7 +18,7 @@ func main() {
 	//tc.TemplateCreate(data)
 	//story.StartStory(data)
 
-	nh := h.NewStoryHandler(data)
+	nh := h.NewStoryHandler(data, nil)
 	fmt.Println("Starting server at ", *port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), nh))
 }
